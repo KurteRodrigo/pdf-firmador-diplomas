@@ -192,3 +192,65 @@ La aplicación está publicada en **GitHub Pages** (alojamiento gratuito y perma
 **Notas:**
 - El repositorio es **público** a propósito: en el plan gratuito de GitHub, Pages solo está disponible para repositorios públicos. No representa riesgo, ya que el código no contiene secretos ni datos, y los diplomas se procesan íntegramente en el navegador sin salir del equipo.
 - Para ejecutar en local durante el desarrollo: `python3 -m http.server 8000` y abrir `http://localhost:8000` (los módulos JS requieren un servidor, no funcionan con doble clic sobre `index.html`).
+
+## 11. Visión a futuro y comercialización
+
+### 11.1 Veredicto de viabilidad comercial
+
+El producto es viable para vender a universidades e instituciones que emiten diplomas y certificados en volumen. Su gran diferenciador es el principio **local-first** ("los documentos nunca salen del equipo"), único frente a soluciones SaaS que procesan en la nube. Requiere evolucionar de una herramienta de uso interno a un producto con cuenta, auditoría y soporte.
+
+**Nota legal clave**: lo que aplica hoy es una **estampa/imagen de firma**, NO una **firma digital criptográfica**. La estampa tiene valor de control interno; la firma digital certificada (Ley 19.799 Chile, eIDAS UE, ESIGN EEUU) exige certificados PKI y backend de verificación. Son dos productos distintos en costo y valor: se puede vender la estampa hoy y ofrecer firma certificada como segunda etapa.
+
+### 11.2 Hoja de ruta del producto (roadmap)
+
+**Etapa A – Consolidar el producto (gratuito, internamente):**
+1. Guardado automático de firma y posición (`localStorage`).
+2. Paginador para revisar cualquier hoja antes de exportar.
+3. Plantillas/presets de posición por tipo de diploma (carta, A4, horizontal).
+4. Opacidad y color de la firma.
+5. Múltiples firmas por documento (vicedecana + dirección de postgrado).
+6. Firmado por lote (varios PDFs a la vez).
+7. Web Worker para replicar las 300 hojas sin congelar la interfaz.
+
+**Etapa B – Preparación para vender (requiere backend mínimo):**
+8. Autenticación, roles (admin / firmante / supervisor) y límites por plan.
+9. **Auditoría**: log de quién firmó qué archivo y cuándo (indispensable para universidades).
+10. **Verificación de integridad**: página que compare un PDF original vs. firmado (hash de páginas no modificadas).
+11. Marca de agua invisible (metadatos de trazabilidad) como disuasión de falsificación.
+12. **White-label**: logo y colores de la universidad (alojamiento bajo dominio propio).
+13. Multi-idioma.
+14. Facturación (Stripe) y términos/privacidad.
+15. CI con GitHub Actions: tests automáticos + despliegue solo si pasa.
+
+**Etapa C – Expansión:**
+16. Soporte de **archivos Word (.docx)** (ver 11.4).
+17. **Firma digital certificada** (PKI) para instituciones con presupuesto.
+18. Reportes y estadísticas para el vicedecanato.
+19. PWA instalable y uso offline.
+
+### 11.3 Modelos de negocio
+
+| Modelo | Ejemplo |
+|---|---|
+| SaaS por suscripción | $X/mes por institución, usuarios ilimitados |
+| Licencia perpetua | Pago único por universidad + soporte anual |
+| White-label + implantación | Cobro por instalación, branding y capacitación |
+| Freemium | Gratis ≤ 20 páginas; de pago para 300 páginas y lote |
+
+### 11.4 Factibilidad de editar archivos Word (.docx)
+
+**Sí es factible**, con un matiz de arquitectura:
+
+- Un `.docx` **no tiene páginas fijas**: el texto refluye según el renderizador. Por lo tanto, "posicionar la firma sobre una página" solo cobra sentido **después de convertir a PDF**.
+- La estrategia recomendada es añadir una capa **Word → PDF** antes del flujo actual de firmado, reutilizando todo lo ya construido (posicionar + replicar + exportar).
+
+Opciones de conversión:
+
+| Opción | Dónde | Calidad | Costo |
+|---|---|---|---|
+| A: `docx-preview`/`mammoth` → PDF | Navegador | Aceptable, puede variar | $0 |
+| B: LibreOffice WASM | Navegador | Alta, ~50 MB de peso | $0, pesado |
+| C: Conversor serverless | Nube | Alta | Bajo (por conversión) |
+| D: Exigir PDF a la fuente | — | Perfecta | $0 |
+
+**Recomendación**: para diplomas, mantener como requisito el **PDF de origen** (opción D) y considerar Word solo como entrada opcional más adelante (opción A o B). El producto de "editar Word" como tal (cambiar texto reflow con intervención del usuario) es un producto diferente y mucho más costoso; no se recomienda como primer objetivo.
