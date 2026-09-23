@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firmador de Diplomas</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <header class="cabecera">
+    <h1>Firmador de Diplomas</h1>
+    <p>Suba el PDF, ubique la firma una sola vez y aplíquela a todas las páginas.</p>
+  </header>
+
+  <main class="contenido">
+    <section class="paneles">
+      <div class="panel">
+        <h2>1. Subir el PDF</h2>
+        <input type="file" id="input-pdf" accept="application/pdf">
+      </div>
+      <div class="panel">
+        <h2>2. Subir la firma</h2>
+        <input type="file" id="input-firma" accept="image/png,image/jpeg,image/webp">
+      </div>
+    </section>
+
+    <section id="lienzo-panel" class="oculto">
+      <h2>3. Ubique la firma sobre la hoja</h2>
+      <div id="visor">
+        <canvas id="canvas-pagina"></canvas>
+        <img id="firma-arrastrable" class="oculto" alt="Firma" draggable="false">
+      </div>
+      <div id="controles" class="oculto">
+        <label for="control-tamano">Tamaño</label>
+        <input type="range" id="control-tamano" min="5" max="60" value="15">
+        <button id="btn-aplicar">Aplicar a todas las páginas</button>
+      </div>
+    </section>
+
+    <section id="progreso-panel" class="oculto">
+      <div class="barra-progreso">
+        <div id="relleno-progreso"></div>
+      </div>
+      <p id="texto-progreso"></p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Los archivos se procesan íntegramente en su equipo. Nada se sube a internet.</p>
+  </footer>
+
+  <script src="vendor/pdf.min.js"></script>
+  <script src="vendor/pdf-lib.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
