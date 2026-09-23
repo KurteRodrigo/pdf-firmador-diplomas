@@ -3,6 +3,8 @@
  * Responsabilidad única: renderizar la primera hoja del PDF en un canvas con PDF.js.
  * Contrato: renderizar(arrayBuffer, numeroPagina, canvas) -> Promise<PdfDocument>
  * Expone: paginaSizePts { width, height } (tamaño de la página en puntos PDF)
+ * Nota: PDF.js transfiere (detacha) el ArrayBuffer recibido, por lo que se
+ * trabaja sobre una copia. El buffer del llamador queda intacto.
  * La librería pdfjsLib se recibe por inyección (principio D).
  */
 export class VistaPrevia {
@@ -12,7 +14,8 @@ export class VistaPrevia {
   }
 
   async renderizar(arrayBuffer, numeroPagina, canvas) {
-    const documento = await this.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const datos = arrayBuffer.slice(0);
+    const documento = await this.pdfjsLib.getDocument({ data: datos }).promise;
     const pagina = await documento.getPage(numeroPagina);
     const base = pagina.getViewport({ scale: 1 });
     this.paginaSizePts = { width: base.width, height: base.height };
