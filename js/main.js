@@ -16,6 +16,7 @@ import { mostrar } from './ui/componentes.js';
 
 const PDFLib = window.PDFLib;
 const pdfjsLib = window.pdfjsLib;
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
 
 const el = {
   inputPdf: document.getElementById('input-pdf'),
