@@ -26,6 +26,7 @@ const el = {
   firma: document.getElementById('firma-arrastrable'),
   controles: document.getElementById('controles'),
   controlTamano: document.getElementById('control-tamano'),
+  controlRotacion: document.getElementById('control-rotacion'),
   btnAplicar: document.getElementById('btn-aplicar'),
   progresoPanel: document.getElementById('progreso-panel'),
   textoProgreso: document.getElementById('texto-progreso'),
@@ -35,7 +36,7 @@ const el = {
 const uploaderPDF = new UploaderPDF();
 const uploaderFirma = new UploaderFirma();
 const vistaPrevia = new VistaPrevia({ pdfjsLib });
-const posicionador = new Posicionador(el.canvas, el.firma, el.controlTamano);
+const posicionador = new Posicionador(el.canvas, el.firma, el.controlTamano, el.controlRotacion);
 const conversor = new ConversorCoordenadas();
 const replicador = new Replicador({ PDFLib });
 const exportador = new Exportador();
@@ -73,9 +74,10 @@ el.btnAplicar.addEventListener('click', async () => {
   }
   try {
     progreso.iniciar();
+    const rectCanvas = el.canvas.getBoundingClientRect();
     const posicion = conversor.convertir(posicionador.getEstado(), {
-      vistaAncho: el.canvas.width,
-      vistaAlto: el.canvas.height,
+      vistaAncho: rectCanvas.width,
+      vistaAlto: rectCanvas.height,
       paginaAnchoPts: vistaPrevia.paginaSizePts.width,
       paginaAltoPts: vistaPrevia.paginaSizePts.height,
     });
