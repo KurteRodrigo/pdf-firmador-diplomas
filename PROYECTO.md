@@ -177,3 +177,18 @@ Tiempo total estimado del MVP: **aprox. 1 semana**.
 - Confirmar que la firma recibida es **PNG con transparencia** (o convertirla sin fondo).
 - Confirmar el **tamaño máximo** típico de los PDFs (peso en MB) para asegurar que se abren rápido en el navegador.
 - Probar el posicionamiento con **muestras reales** (2 o 3 diplomas) antes de usarla en producción.
+
+## 10. Despliegue y publicación
+
+La aplicación está publicada en **GitHub Pages** (alojamiento gratuito y permanente).
+
+| Dato | Valor |
+|---|---|
+| URL de acceso | **https://kurterodrigo.github.io/pdf-firmador-diplomas/** |
+| Repositorio | https://github.com/KurteRodrigo/pdf-firmador-diplomas (público) |
+| Rama de despliegue | `main` (raíz del proyecto) |
+| Actualización | Automática: cada push a `main` regenera el sitio en ~1 minuto |
+
+**Notas:**
+- El repositorio es **público** a propósito: en el plan gratuito de GitHub, Pages solo está disponible para repositorios públicos. No representa riesgo, ya que el código no contiene secretos ni datos, y los diplomas se procesan íntegramente en el navegador sin salir del equipo.
+- Para ejecutar en local durante el desarrollo: `python3 -m http.server 8000` y abrir `http://localhost:8000` (los módulos JS requieren un servidor, no funcionan con doble clic sobre `index.html`).
