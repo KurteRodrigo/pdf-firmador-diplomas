@@ -193,6 +193,16 @@ La aplicación está publicada en **GitHub Pages** (alojamiento gratuito y perma
 - El repositorio es **público** a propósito: en el plan gratuito de GitHub, Pages solo está disponible para repositorios públicos. No representa riesgo, ya que el código no contiene secretos ni datos, y los diplomas se procesan íntegramente en el navegador sin salir del equipo.
 - Para ejecutar en local durante el desarrollo: `python3 -m http.server 8000` y abrir `http://localhost:8000` (los módulos JS requieren un servidor, no funcionan con doble clic sobre `index.html`).
 
+### Flujo de trabajo y versionado (regla operativa)
+
+Como el push a `main` **despliega automáticamente en producción**, el flujo de desarrollo es estricto:
+
+1. **Desarrollo**: se crea commit local con los cambios.
+2. **Validación**: la usuaria prueba la versión local en su equipo (`python3 -m http.server 8000`) y confirma que funciona.
+3. **Publicación**: solo después de la validación se hace `git push` a `main`, lo que actualiza el sitio en ~1 minuto.
+
+**Regla: nunca hacer push a `main` sin validación previa de la persona usuaria.**
+
 ## 11. Visión a futuro y comercialización
 
 ### 11.1 Veredicto de viabilidad comercial
@@ -208,7 +218,7 @@ El producto es viable para vender a universidades e instituciones que emiten dip
 2. Paginador para revisar cualquier hoja antes de exportar.
 3. Plantillas/presets de posición por tipo de diploma (carta, A4, horizontal).
 4. Opacidad y color de la firma.
-5. Múltiples firmas por documento (vicedecana + dirección de postgrado).
+5. ~~Múltiples firmas por documento (vicedecana + dirección de postgrado).~~ ✅ Implementado (oct 2026)
 6. Firmado por lote (varios PDFs a la vez).
 7. Web Worker para replicar las 300 hojas sin congelar la interfaz.
 
