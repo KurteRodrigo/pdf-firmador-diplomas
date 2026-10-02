@@ -77,7 +77,13 @@ body {
   max-width: 100%;
 }
 
-#firma-arrastrable {
+#capas-firmas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.firma-overlay {
   position: absolute;
   left: 0;
   top: 0;
@@ -88,12 +94,47 @@ body {
   transform-origin: 0 0;
 }
 
+.fila-firma {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.fila-firma input[type="file"] {
+  flex: 1;
+  min-width: 0;
+}
+
+.estado-firma {
+  font-size: 0.8rem;
+  color: #6e7781;
+  white-space: nowrap;
+}
+
 #controles {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   margin: 1rem auto;
+  flex-wrap: wrap;
+}
+
+.grupo-control {
+  background: #fff;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.grupo-control h3 {
+  margin: 0 0.5rem 0 0;
+  font-size: 0.9rem;
 }
 
 button {

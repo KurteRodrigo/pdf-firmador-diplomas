@@ -34,10 +34,13 @@ export class Posicionador {
   }
 
   alIniciarArrastre(evento) {
-    const rect = this.obtenerLienzoRect();
+    const rectLienzo = this.obtenerLienzoRect();
+    const rectFirma = this.firma.getBoundingClientRect();
+    this.x = rectFirma.left - rectLienzo.left;
+    this.y = rectFirma.top - rectLienzo.top;
     this.arrastrando = true;
-    this.desfaseX = evento.clientX - rect.left - this.x;
-    this.desfaseY = evento.clientY - rect.top - this.y;
+    this.desfaseX = evento.clientX - rectLienzo.left - this.x;
+    this.desfaseY = evento.clientY - rectLienzo.top - this.y;
   }
 
   alMover(evento) {

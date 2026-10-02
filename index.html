@@ -19,22 +19,41 @@
         <input type="file" id="input-pdf" accept="application/pdf">
       </div>
       <div class="panel">
-        <h2>2. Subir la firma</h2>
-        <input type="file" id="input-firma" accept="image/png,image/jpeg,image/webp">
+        <h2>2. Subir las firmas</h2>
+        <div class="fila-firma">
+          <label for="input-firma-1">Firma 1</label>
+          <input type="file" id="input-firma-1" accept="image/png,image/jpeg,image/webp">
+          <span class="estado-firma" id="estado-firma-1">No cargada</span>
+        </div>
+        <div class="fila-firma">
+          <label for="input-firma-2">Firma 2</label>
+          <input type="file" id="input-firma-2" accept="image/png,image/jpeg,image/webp">
+          <span class="estado-firma" id="estado-firma-2">No cargada</span>
+        </div>
       </div>
     </section>
 
     <section id="lienzo-panel" class="oculto">
-      <h2>3. Ubique la firma sobre la hoja</h2>
+      <h2>3. Ubique las firmas sobre la hoja</h2>
       <div id="visor">
         <canvas id="canvas-pagina"></canvas>
-        <img id="firma-arrastrable" class="oculto" alt="Firma" draggable="false">
+        <div id="capas-firmas"></div>
       </div>
       <div id="controles" class="oculto">
-        <label for="control-tamano">Tamaño</label>
-        <input type="range" id="control-tamano" min="5" max="80" value="15">
-        <label for="control-rotacion">Rotación (°)</label>
-        <input type="range" id="control-rotacion" min="-180" max="180" value="0">
+        <div class="grupo-control">
+          <h3>Firma 1</h3>
+          <label for="control-tamano-1">Tamaño</label>
+          <input type="range" id="control-tamano-1" min="5" max="80" value="15">
+          <label for="control-rotacion-1">Rotación (°)</label>
+          <input type="range" id="control-rotacion-1" min="-180" max="180" value="0">
+        </div>
+        <div class="grupo-control">
+          <h3>Firma 2</h3>
+          <label for="control-tamano-2">Tamaño</label>
+          <input type="range" id="control-tamano-2" min="5" max="80" value="15">
+          <label for="control-rotacion-2">Rotación (°)</label>
+          <input type="range" id="control-rotacion-2" min="-180" max="180" value="0">
+        </div>
         <button id="btn-aplicar">Aplicar a todas las páginas</button>
       </div>
     </section>
